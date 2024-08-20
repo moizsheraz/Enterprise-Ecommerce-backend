@@ -3,7 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
 import userRoutes from "./routes/user";
-// import authRoutes from "./routes/auth";
+import authRoutes from "./routes/auth";
 import cookieParser from "cookie-parser";
 import path from "path";
 
@@ -15,7 +15,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*", 
+    origin: "http://localhost:5173", 
     credentials: true, 
   })
 );
@@ -39,7 +39,7 @@ app.use(
 );
 
 
-// app.use("/api/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 // app.use("/api/my-hotels", myHotelRoutes);
 // app.use("/api/hotels", hotelRoutes);
