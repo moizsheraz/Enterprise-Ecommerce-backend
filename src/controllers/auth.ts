@@ -43,3 +43,8 @@ export const LoginUser =  async (req: Request, res: Response) => {
       res.status(500).json({ message: "Something went wrong" });
     }
   }
+
+  export const Logout=async(req:Request,res:Response)=>{
+ res.clearCookie('auth_token');
+res.status(200).json({ message: 'Logged out successfully' });
+  }
