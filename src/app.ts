@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/user";
 import authRoutes from "./routes/auth";
 import cookieParser from "cookie-parser";
-import path from "path";
 
 // import { v2 as cloudinary } from "cloudinary";
 // import myHotelRoutes from "./routes/my-hotels";
@@ -15,7 +14,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", 
+    // origin: "http://localhost:5173", 
+    origin:"https://enterprise-ecommerce-frontend.vercel.app",
     credentials: true, 
   })
 );
@@ -26,7 +26,14 @@ app.use(
 //   api_secret: process.env.CLOUDINARY_API_SECRET,
 // });
 
-mongoose.connect(process.env.DATABASE_URI  as string);
+const uri = process.env.DATABASE_URI;
+if (!uri) {
+  throw new Error('MONGO_URI is not defined');
+}
+
+mongoose.connect(uri)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('Failed to connect to MongoDB', err));
 
 app.use(cookieParser());
 app.use(express.json());
